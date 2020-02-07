@@ -1,0 +1,92 @@
+### Obs: ainda em desenvolvimento... ###
+
+# Descrição
+Este projeto é um modelo de desenvolvimento de aplicações web utilizando Flask.
+Tem como objetivo servir de base para a criação das aplicações do HackerSpace CCDL.
+
+Contém dentro dele aplicações independentes com as finalidades:
+- app: é a aplicação principal, composta pelas demais aplicações
+- main: gerenciar a pagina inicial e servir de um modelo para gerenciar as requisições GET
+- errors: gerenciar os erros mais comuns e fornecer um modelo para gerenciar outros tipos de erros
+- users: modelo de cadastro, login e gerenciamento de usuários
+- admin: modelo gerenciamento administradores que podem alterar os bancos de dados
+- data: modelos gerericos para bancos de dados, buscas, etc (por exemplo livro, postagens)
+
+
+As demais pastas:
+- templates: onde ficam guardados os arquivos .html
+- static: onde ficam guardados os arquivos .css, .js, imagens
+
+Finalidade dos arquivos:
+__init__.py:
+O __init__.py que está na pasta app cria uma instancia da aplicação.
+Cada aplicção dentro da aplicação principal também contém um arquivo __init__.py.
+Estes últimos __init__.py servem para transformar as aplicações em módulos utilizáveis por outras aplicações.
+O código dentro destes últimos __init__.py cria um blueprint destas aplicações.
+Cada blueprint pode ser registrado no __init__.py da aplicação principal.
+Esse procedimento torna cada modulo ou aplicação independente e reutilizável.
+
+run.py:
+O arquivo run.py é responsável por iniciar o servidor.
+
+config.py:
+Responsável pelas configurações
+
+models.py:
+Arquivo responsável por criar as classes que modelam os bancos de dados.
+SQLAlchemy e MongoAlchemy usam essas classes para gerar os bancos de dados.
+
+routes.py:
+Responsável por gerenciar as rotas e requests.
+
+base.html
+Cria um layout ou estrutura reutilizável pelos demais .html através do Jinja2
+
+forms.py
+Responsável pelos formulários.
+WTForms gerencia a criação e validação dos formulários.
+
+
+# Iniciando o servidor
+O comando 'flask run' executa, por padrão, o arquivo app.py, que não existe.
+Para iniciar o servidor com este comando devemos primeiro exportar as váriaveis de ambiente.
+$ export FLASK_APP=run.py (no WINDOWS: set FLASK_APP=run.py)
+$ flask run
+
+Alternativamente podemos simplesmente executar:
+$ python run.py
+
+
+# Observação
+O servidor está em modo de desenvolvimento.
+É necessário fazer algumas alterações para colocá-lo em produção, como desabilitar o modo DEBUG,
+criar uma configuração para os formulários com SECRET_KEY, etc
+
+
+# Bibliotecas e configurações
+
+Para rodar a aplicação é necessário instalar o python 3 e mais algumas bibliotecas.
+As bibliotecas necessárias estão listadas em requirements.txt
+
+venv cria um ambiente virtual de modo a não interferir com as demais biblioteas instaladas.
+O comando abaixo cria um ambiente virtual venv dentro de uma pasta dentro do diretório atual
+$ python -m venv 'nome do ambiente vitual'
+
+Não é necessário a pasta se chamar venv, mas é o comum manter o mesmo nome:
+$ python -m venv venv
+
+$ source venv/bin/activate
+O (venv) antes do $ na linha de comando indica que o ambiente virtual está ativado:
+(venv) $ 
+Para desativar o ambiente virtual
+(venv) $ deactivate
+
+pip é um gerenciador de pacotes do python
+(venv) $ pip install -U pip
+
+O arquivo requirements.txt pode conter mais ou menas bibliotecas necessárias para sua aplicação.
+Para instalar as bibliotecas listadas em requirements.txt
+(venv) $ pip install -r requirements.txt
+
+Caso não queira instalar todas bibliotecas e instalar apenas o mínimo:
+(venv) $ pip install flask
